@@ -1,11 +1,12 @@
-.# Edit this configuration file to define what should be installed on
+# Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }: {
+{ config, pkgs, inputs, ... }: {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
     ];
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -18,7 +19,7 @@
   boot.loader.grub.useOSProber = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -52,10 +53,13 @@
     displayManager.startx.enable = true;
     windowManager.dwm.enable = true;
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
-      src = /home/ozpv/.suckless/dwm;
+      src = fetchGit {
+        url = "https://github.com/ozpv/dwm.git";
+        rev = "179c9d06abc44fae3ce35e47e9865ba243b75298";
+      };
     };
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
   services.picom.enable = true; 
 
@@ -68,6 +72,12 @@
     shell = pkgs.zsh;
   };
 
+  home-manager = {
+    users.ozpv = {
+      imports = [ ./home.nix ];
+    };
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -77,13 +87,22 @@
     vim
     neovim
     (st.overrideAttrs {
-      src = /home/ozpv/.suckless/st;
+      src = fetchGit {
+        url = "https://github.com/ozpv/st.git";
+        rev = "a74788fe9617d8b995b61ba9d194a7c12cdd119b";
+      };
     })
     (dmenu.overrideAttrs {
-      src = /home/ozpv/.suckless/dmenu;
+      src = fetchGit {
+        url = "https://github.com/ozpv/dmenu.git";
+        rev = "bed00c031b2c004be3742edc88b98d2c047fc673";
+      };
     })
     (slstatus.overrideAttrs {
-      src = /home/ozpv/.suckless/slstatus;
+      src = fetchGit {
+        url = "https://github.com/ozpv/slstatus.git";
+        rev = "9e533dcb56f3d34a85b5ba7f279c2870ebcc4034";
+      };
     })
     networkmanager_dmenu
     sxiv
@@ -91,6 +110,7 @@
     lf
     wget
     git
+    home-manager
   ];
 
   # browser
@@ -139,4 +159,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+
 }
