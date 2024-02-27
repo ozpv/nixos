@@ -3,7 +3,79 @@
     enable = true;
     
     profiles.ozpv = {
+      userChrome = '' 
+        :root[tabsintitlebar][sizemode="normal"]{
+          --uc-window-drag-space-width: 24px;
+        }
+        :root[uidensity="compact"]{
+          --tab-block-margin: 2px !important;
+        }
+        
+        #navigator-toolbox{
+          --uc-navigationbar-width: 40vw;
+          --uc-toolbar-height: 40px;
+          --uc-urlbar-min-width: 50vw;
+        }
+        
+        #scrollbutton-up,
+        #scrollbutton-down{ border-block-width: 2px !important; }
+        
+        :root[uidensity="compact"] #navigator-toolbox{ --uc-toolbar-height: 34px; }
+        :root[uidensity="touch"] #navigator-toolbox{ --uc-toolbar-height: 44px; }
+        
+        @media screen and (max-width: 1500px){
+            #urlbar-container{
+              min-width: 300px !important;
+              flex-shrink: 1 !important;
+            }
+        }
+        
+        #TabsToolbar{
+          margin-left: var(--uc-navigationbar-width);
+          --tabs-navbar-shadow-size: 0px;
+        }
+        #tabbrowser-tabs{
+          --tab-min-height: calc(var(--uc-toolbar-height) - 2 * var(--tab-block-margin,0px)) !important;
+        }
+        
+        .titlebar-spacer[type="pre-tabs"]{ display: none }
+        
+        #navigator-toolbox > #nav-bar{
+          margin-right:calc(100vw - var(--uc-navigationbar-width));
+          margin-top: calc(0px - var(--uc-toolbar-height));
+        }
+        
+        :root[tabsintitlebar="true"] #nav-bar{ padding-left: var(--uc-window-drag-space-width) !important }
+        
+        @media (-moz-gtk-csd-reversed-placement),
+               (-moz-platform: macos){
+          .titlebar-buttonbox-container{
+            position: fixed;
+            display: flex;
+            left: 0px;
+            z-index: 3;
+            height: var(--uc-toolbar-height);
+            align-items: center
+          }
+          :root[tabsintitlebar="true"] #nav-bar{ padding-inline: calc(var(--uc-window-drag-space-width,0px) + 84px) 0px !important; }
+        }
+        @media (-moz-platform: macos){
+          :root[tabsintitlebar="true"] #nav-bar{ padding-inline: calc(var(--uc-window-drag-space-width,0px) + 72px) 0px !important; }
+        }
+        
+        .tab-close-button{ margin-top: 0 !important }
+        
+        #urlbar[open]:focus-within{ min-width: var(--uc-urlbar-min-width,none) !important; }
+        
+        #urlbar-container:not(:hover) .urlbar-history-dropmarker{ margin-inline-start: -28px; }
+        
+        #customization-panelWrapper > .panel-arrowbox > .panel-arrow{ margin-inline-end: initial !important; }
+      '';
+
       settings = {
+        # enable userChrome.css
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
         # settings that might actually break things...
         "webgl.disabled" = true;
         "webgl.renderer-string-override" = " ";
