@@ -113,6 +113,9 @@
     home-manager
   ];
 
+  # gtk
+  programs.dconf.enable = true;
+
   # browser
   programs.firefox.enable = true;
 
