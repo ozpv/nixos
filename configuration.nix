@@ -61,6 +61,8 @@
     xkb.layout = "us";
     xkb.variant = "";
   };
+
+  # compostior
   services.picom.enable = true; 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -71,6 +73,9 @@
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
+
+  # lock screen
+  programs.slock.enable = true;
 
   home-manager = {
     users.ozpv = {
