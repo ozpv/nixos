@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   
   src = fetchGit {
     url = "https://github.com/ozpv/powermenu.git";
-    rev = "ea722a33a5041756618f1e1d312a08c3bfd14add";
+    rev = "e5a826b6db2941c992912e940b7da37ae276b144";
   };
 
   makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
