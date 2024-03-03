@@ -101,7 +101,7 @@
     (dmenu.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dmenu.git";
-        rev = "21f4e2fd04c9dc6d4c5f5cfdbc3188b31d4657c0";
+        rev = "29255fd85845d66ce625b050ae9ab2751e382b73";
       };
     })
     (slstatus.overrideAttrs {
@@ -112,6 +112,7 @@
     })
     (callPackage ./apps/powermenu.nix {})
     networkmanager_dmenu
+    maim
     sxiv
     xwallpaper
     lf
