@@ -101,7 +101,7 @@
     (dmenu.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dmenu.git";
-        rev = "bed00c031b2c004be3742edc88b98d2c047fc673";
+        rev = "21f4e2fd04c9dc6d4c5f5cfdbc3188b31d4657c0";
       };
     })
     (slstatus.overrideAttrs {
