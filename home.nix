@@ -1,7 +1,7 @@
 { config, pkgs, libs, ... }:
 
 {
-  imports = [ ./firefox.nix ];
+  imports = [ ./apps/firefox.nix ];
 
   gtk.enable = true;
 

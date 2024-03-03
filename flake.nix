@@ -16,14 +16,13 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-    
       nixosConfigurations.ozpv = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [ 
-            ./configuration.nix
-            inputs.home-manager.nixosModules.default
-          ];
-        };
-
+        specialArgs = {inherit inputs;};
+        modules = [ 
+          ./configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+      devShells.x86_64-linux.default = (import ./shells/rust.nix {inherit pkgs; });
     };
 }

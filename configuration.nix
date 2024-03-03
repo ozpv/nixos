@@ -110,7 +110,7 @@
         rev = "9e533dcb56f3d34a85b5ba7f279c2870ebcc4034";
       };
     })
-    (callPackage ./powermenu.nix {})
+    (callPackage ./apps/powermenu.nix {})
     networkmanager_dmenu
     sxiv
     xwallpaper
