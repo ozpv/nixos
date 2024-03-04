@@ -23,6 +23,6 @@
           inputs.home-manager.nixosModules.default
         ];
       };
-      devShells.x86_64-linux.default = (import ./shells/rust.nix {inherit pkgs; });
+      devShells.x86_64-linux.default = (import ./shells/dev.nix {inherit pkgs; });
     };
 }
