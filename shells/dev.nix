@@ -14,5 +14,6 @@ pkgs.mkShell {
     dioxus-cli
     cargo-leptos
     cargo-generate
+    tailwindcss
   ];
 }
