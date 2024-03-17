@@ -13,5 +13,6 @@ pkgs.mkShell {
     rustc-wasm32
     dioxus-cli
     cargo-leptos
+    cargo-generate
   ];
 }
