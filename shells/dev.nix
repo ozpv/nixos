@@ -15,5 +15,6 @@ pkgs.mkShell {
     cargo-leptos
     cargo-generate
     tailwindcss
+    binaryen
   ];
 }
