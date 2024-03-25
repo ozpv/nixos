@@ -127,6 +127,18 @@
   # browser
   programs.firefox.enable = true;
 
+  # tmux
+  programs.tmux = {
+    enable = true;
+    extraConfig = ''
+      set -g prefix C-a
+      bind-key l select-pane -L
+      bind-key h select-pane -R
+      bind-key k select-pane -U
+      bind-key j select-pane -D
+    ''; 
+  };
+
   # fonts
   fonts.packages = with pkgs; [
     (nerdfonts.override {
