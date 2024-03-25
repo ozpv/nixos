@@ -16,5 +16,7 @@ pkgs.mkShell {
     cargo-generate
     tailwindcss
     binaryen
+    sqlite
+    sqlx-cli
   ];
 }

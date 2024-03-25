@@ -91,7 +91,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
-    neovim
     (st.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/st.git";
@@ -120,6 +119,16 @@
     git
     home-manager
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    configure = {
+      customRC = ''
+        set nu
+      '';
+    };
+  };
 
   # gtk
   programs.dconf.enable = true;
