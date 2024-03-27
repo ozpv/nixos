@@ -1,7 +1,9 @@
 { config, pkgs, libs, ... }:
 
 {
-  imports = [ ./apps/firefox.nix ];
+  imports = [ 
+    ./apps/firefox.nix 
+  ];
 
   gtk.enable = true;
 
@@ -24,36 +26,6 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
-  };
-
-  programs.neovim = {
-    enable = true;
-
-    plugins = with pkgs.vimPlugins; [
-      comment-nvim
-
-      {
-        plugin = lualine-nvim;
-	type = "lua";
-	config = "${builtins.readFile nvim/plugin/lualine.lua}";
-      }
-      nvim-web-devicons
-
-      {
-        plugin = gruvbox;
-        config = "colorscheme gruvbox";
-      }
-    
-      {
-        plugin = nvim-lspconfig;
-        type = "lua";
-        config = "${builtins.readFile nvim/plugin/lsp.lua}";
-      }
-    ];
-
-    extraLuaConfig = ''
-      ${builtins.readFile nvim/options.lua }
-    '';
   };
 
   programs.home-manager.enable = true;
