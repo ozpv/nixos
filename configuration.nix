@@ -114,21 +114,13 @@
     maim
     sxiv
     xwallpaper
-    lf
     wget
     git
     home-manager
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    configure = {
-      customRC = ''
-        set nu
-      '';
-    };
-  };
+  # neovim
+  programs.neovim.enable = true;
 
   # gtk
   programs.dconf.enable = true;
