@@ -7,11 +7,14 @@ pkgs.mkShell {
     xorg.libX11.dev
     xorg.libXft.dev
     xorg.libXinerama.dev
-    rustup
+    rustc
+    rust-analyzer
     rustfmt
     trunk
     rustc-wasm32
     dioxus-cli
+    cargo
+    cargo-binutils
     cargo-leptos
     cargo-generate
     tailwindcss
