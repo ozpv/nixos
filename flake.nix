@@ -23,6 +23,9 @@
           inputs.home-manager.nixosModules.default
         ];
       };
-      devShells.x86_64-linux.default = (import ./shells/dev.nix {inherit pkgs; });
+      devShells.x86_64-linux = {
+        default = (import ./shells/all.nix {inherit pkgs;});
+        haemolacriaa = (import ./shells/haemolacriaa.nix {inherit pkgs;});
+      };
     };
 }

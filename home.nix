@@ -14,7 +14,7 @@
 
   home.username = "ozpv";
   home.homeDirectory = "/home/ozpv";
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  home.stateVersion = "23.11";
 
   nixpkgs.config.allowUnfree = true;
 
@@ -29,6 +29,10 @@
   };
 
   programs.home-manager.enable = true;
+
+  programs.neovim = {
+    extraLuaConfig = '''';
+  };
 
   programs.zsh = {
     enable = true;
