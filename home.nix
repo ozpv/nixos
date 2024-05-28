@@ -31,7 +31,9 @@
   programs.home-manager.enable = true;
 
   programs.neovim = {
-    extraLuaConfig = '''';
+    viAlias = true;
+    vimAlias = true;
+    extraConfig = builtins.readFile ./etc/nixos/nvim/init.lua;
   };
 
   programs.zsh = {

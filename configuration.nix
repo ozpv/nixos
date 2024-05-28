@@ -56,7 +56,7 @@
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dwm.git";
-        rev = "179c9d06abc44fae3ce35e47e9865ba243b75298";
+        rev = "79c81f53d5ff4c29c932e3b01e288bda211a08fa";
       };
     };
     xkb.layout = "us";
@@ -94,13 +94,13 @@
     (st.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/st.git";
-        rev = "a74788fe9617d8b995b61ba9d194a7c12cdd119b";
+        rev = "b1281f13579b710c443f0127f5ca49da36fe26b2";
       };
     })
     (dmenu.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dmenu.git";
-        rev = "29255fd85845d66ce625b050ae9ab2751e382b73";
+        rev = "d22280f3dc99dd71b5c86c1a6ce584bdee7cd8eb";
       };
     })
     (slstatus.overrideAttrs {
@@ -121,6 +121,7 @@
 
   # neovim
   programs.neovim.enable = true;
+  environment.variables.EDITOR = "nvim";
 
   # gtk
   programs.dconf.enable = true;
