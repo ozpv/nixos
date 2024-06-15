@@ -94,7 +94,7 @@
     (st.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/st.git";
-        rev = "b1281f13579b710c443f0127f5ca49da36fe26b2";
+        rev = "3a3cb60a329fc9dd139cd7a38e73307be791b480";
       };
     })
     (dmenu.overrideAttrs {

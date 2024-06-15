@@ -8,6 +8,7 @@ pkgs.mkShell {
     xorg.libXft.dev
     xorg.libXinerama.dev
     rustc
+    rustup
     rust-analyzer
     rustfmt
     trunk
@@ -19,7 +20,7 @@ pkgs.mkShell {
     cargo-generate
     tailwindcss
     binaryen
-    sqlite
+    postgresql
     sqlx-cli
   ];
 }
