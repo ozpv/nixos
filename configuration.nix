@@ -56,7 +56,7 @@
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dwm.git";
-        rev = "79c81f53d5ff4c29c932e3b01e288bda211a08fa";
+        rev = "5d98b0dc24040979851c8e70bec5605bbc54a3e1";
       };
     };
     xkb.layout = "us";
@@ -90,6 +90,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    brightnessctl
     vim
     (st.overrideAttrs {
       src = fetchGit {
@@ -106,7 +107,7 @@
     (slstatus.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/slstatus.git";
-        rev = "9e533dcb56f3d34a85b5ba7f279c2870ebcc4034";
+        rev = "874542297f3a3350bac02996639461535e63c076";
       };
     })
     (callPackage ./apps/powermenu.nix {})
@@ -152,7 +153,6 @@
   hardware.bluetooth.enable = false;
 
   # audio
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   # shell
