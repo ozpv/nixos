@@ -5,16 +5,16 @@
     ./apps/firefox.nix 
   ];
 
+  home.username = "ozpv";
+  home.homeDirectory = "/home/ozpv";
+  home.stateVersion = "23.11";
+
   gtk.enable = true;
 
   gtk.cursorTheme.package = pkgs.simp1e-cursors;
   gtk.cursorTheme.name = "Simp1e-Gruvbox-Dark";
   gtk.theme.package = pkgs.gruvbox-dark-gtk;
   gtk.theme.name = "gruvbox-dark";
-
-  home.username = "ozpv";
-  home.homeDirectory = "/home/ozpv";
-  home.stateVersion = "23.11";
 
   nixpkgs.config.allowUnfree = true;
 
