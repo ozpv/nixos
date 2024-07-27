@@ -119,7 +119,7 @@
     (slstatus.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/slstatus.git";
-        rev = "874542297f3a3350bac02996639461535e63c076";
+        rev = "d8a6d891cba4217d52e325b4107072473c174e45";
       };
     })
     (callPackage ./apps/powermenu.nix {})
