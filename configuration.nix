@@ -22,6 +22,12 @@
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
 
+  # touchpad
+  services.libinput.enable = true;
+  services.libinput.touchpad.naturalScrolling = false; 
+  services.libinput.touchpad.middleEmulation = true; 
+  services.libinput.touchpad.tapping = true;
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -66,6 +72,11 @@
   # compostior
   services.picom.enable = true; 
 
+  # login
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore
+  '';
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ozpv = {
     isNormalUser = true;
@@ -90,6 +101,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    libinput-gestures
     brightnessctl
     vim
     (st.overrideAttrs {
@@ -154,6 +166,7 @@
 
   # audio
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
   # shell
   programs.zsh.enable = true;

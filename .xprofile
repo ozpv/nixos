@@ -1,0 +1,2 @@
+xrandr --dpi 116 &
+xrandr -s 1920x1200 &
