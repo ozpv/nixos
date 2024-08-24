@@ -1,20 +1,20 @@
-{ pkgs, lib, spicetify-nix, ... }: 
+{ pkgs, lib, inputs, ... }: 
 
 {
-  imports = [ spicetify-nix.homeManagerModule ];
-  programs.spicetify = let
-    spicePkgs = spicetify-nix.legacyPackages.${pkgs.system}; 
-  in {
-    # configure spicetify :)
-    enable = true; # this is the line that will cause spotify to get installed
-    theme = spicePkgs.themes.catppuccin-mocha;
-    colorScheme = "mauve";
-  #    enabledExtensions = with spicePkgs.extensions; [
-  #      # "playlistIcons.js" # only needed if not using dribbblish
-  #      "fullAlbumDate.js"
-  #      "showQueueDuration.js"
-  #      "playNext.js"
-  #      "shuffle+.js"
-  #    ];
-  }
+  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
+
+  programs.spicetify =
+   let
+     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+   in
+   {
+     enable = true;
+     enabledExtensions = with spicePkgs.extensions; [
+       adblock
+       hidePodcasts
+       shuffle # shuffle+ (special characters are sanitized out of extension names)
+     ];
+     theme = spicePkgs.themes.starryNight;
+     # colorScheme = "mocha";
+   };
 }

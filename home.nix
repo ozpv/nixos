@@ -1,8 +1,10 @@
-{ config, pkgs, libs, ... }:
+{ config, pkgs, libs, inputs, ... }:
 
 {
   imports = [ 
     ./apps/firefox.nix 
+    ./apps/nixvim.nix
+    ./apps/spicetify.nix
   ];
 
   home.username = "ozpv";

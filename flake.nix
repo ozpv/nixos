@@ -8,9 +8,20 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { nixpkgs, home-manager, nixvim, spicetify-nix, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -20,7 +31,9 @@
         specialArgs = {inherit inputs;};
         modules = [ 
           ./configuration.nix
-          inputs.home-manager.nixosModules.default
+          home-manager.nixosModules.home-manager {
+            home-manager.extraSpecialArgs = { inherit inputs; };
+          }
         ];
       };
       devShells.x86_64-linux = {
