@@ -39,6 +39,7 @@
       devShells.x86_64-linux = {
         default = (import ./shells/all.nix {inherit pkgs;});
         haemolacriaa = (import ./shells/haemolacriaa.nix {inherit pkgs;});
+        csci = (import ./shells/csci.nix {inherit pkgs;});
       };
     };
 }

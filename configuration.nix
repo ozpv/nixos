@@ -18,11 +18,23 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
   boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+  boot.kernelParams = [ "amd_iommu=on" "amd_iommu=pt" "kvm.ignore_msrs=1" ];
+  boot.extraModprobeConfig = "options vfio-pci ids=10de:25ac";
 
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
-  networking.firewall.enable = true;
-
+  networking = {
+    # dns.mullvad.net
+    # nameservers = [ "194.242.2.2" ];
+    networkmanager = {
+       enable = true;
+    };
+    dhcpcd.extraConfig = "nohook resolv.conf";
+    hostName = "nixos"; # Define your hostname.
+    wireless.enable = false;  # Enables wireless support via wpa_supplicant.
+    firewall.enable = true;  
+  };
+  
   # touchpad
   services.libinput.enable = true;
   services.libinput.touchpad.naturalScrolling = false; 
@@ -31,55 +43,52 @@
 
   # graphics
   hardware.graphics.enable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
-
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-
-      # Make sure to use the correct Bus ID values for your system!
-      amdgpuBusId = "PCI:115:0:0"; 
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
-  services.xserver.videoDrivers = [ "nvidia" ];
+#  hardware.nvidia = {
+#    modesetting.enable = true;
+#
+#    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+#    # Enable this if you have graphical corruption issues or application crashes after waking
+#    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+#    # of just the bare essentials.
+#    powerManagement.enable = false;
+#
+#    # Fine-grained power management. Turns off GPU when not in use.
+#    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+#    powerManagement.finegrained = false;
+#
+#    # Use the NVidia open source kernel module (not to be confused with the
+#    # independent third-party "nouveau" open source driver).
+#    # Support is limited to the Turing and later architectures. Full list of 
+#    # supported GPUs is at: 
+#    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+#    # Only available from driver 515.43.04+
+#    # Currently alpha-quality/buggy, so false is currently the recommended setting.
+#    open = false;
+#
+#    # Enable the Nvidia settings menu,
+#    # accessible via `nvidia-settings`.
+#    nvidiaSettings = true;
+#
+#    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+#    package = config.boot.kernelPackages.nvidiaPackages.stable;
+#    
+#    prime = {
+#      offload = {
+#        enable = true;
+#        enableOffloadCmd = true;
+#      };
+#
+#      # Make sure to use the correct Bus ID values for your system!
+#      amdgpuBusId = "PCI:115:0:0"; 
+#      nvidiaBusId = "PCI:1:0:0";
+#    };
+#  };
+#  services.xserver.videoDrivers = [ "nvidia" ];
   # boot.kernelParams = [ "module_blacklist=amdgpu" "module_blacklist=i915" ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -127,7 +136,7 @@
   users.users.ozpv = {
     isNormalUser = true;
     description = "ozpv";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -216,6 +225,10 @@
 
   # shell
   programs.zsh.enable = true;
+
+  # virtualization
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
