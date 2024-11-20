@@ -50,6 +50,12 @@
         };
       };
 
+      treesitter = {
+        enable = true;
+        folding = false;
+        settings.indent.enable = true;
+      };
+
       lsp = {
         enable = true;
         servers = {
@@ -69,6 +75,42 @@
           };
         };
       };
+
+      lspkind.enable = true;
+
+      luasnip.enable = true;
+
+      cmp = {
+        enable = true;
+        autoEnableSources = true;
+  
+        settings = {
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+  
+          mapping = {
+            "<Tab>" = "cmp.mapping.confirm({ select = true })";
+            "<S-Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+          };
+  
+          sources = [
+            {name = "path";}
+            {name = "nvim_lsp";}
+            {name = "luasnip";}
+            {name = "crates";}
+            {name = "buffer";}
+          ];
+        };
+      };
+  
+      rustaceanvim = {
+        enable = false;
+  
+        settings = {
+          tools.enable_clippy = true;
+        };
+      };
+
+      lualine.enable = true;
     };
 
     colorschemes.gruvbox.enable = true;

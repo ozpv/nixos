@@ -12,9 +12,9 @@
      enabledExtensions = with spicePkgs.extensions; [
        adblock
        hidePodcasts
-       shuffle # shuffle+ (special characters are sanitized out of extension names)
+       # shuffle # shuffle+ (special characters are sanitized out of extension names)
      ];
      theme = spicePkgs.themes.starryNight;
-     # colorScheme = "mocha";
+     # colorScheme = "";
    };
 }

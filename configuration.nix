@@ -185,6 +185,7 @@
     wget
     git
     home-manager
+    xclip
   ];
 
   # neovim
