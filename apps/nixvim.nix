@@ -68,6 +68,9 @@
           java-language-server.enable = true;
           cmake.enable = true;
           sqls.enable = true;
+          nixd.enable = true;
+          tailwindcss.enable = true;
+          svelte.enable = true;
           rust-analyzer = {
             enable = true;
             installRustc = true;
