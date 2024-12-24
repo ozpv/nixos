@@ -63,18 +63,18 @@
         enable = true;
         servers = {
           tsserver.enable = true;
-          lua-ls.enable = true;
+          lua_ls.enable = true;
           bashls.enable = true;
           html.enable = true;
           pyright.enable = true;
           jsonls.enable = true;
-          # java-language-server.enable = true;
+          # java_language_server.enable = true;
           cmake.enable = true;
           sqls.enable = true;
           nixd.enable = true;
           tailwindcss.enable = true;
           # svelte.enable = true;
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             installRustc = true;
             installCargo = true;
@@ -116,15 +116,19 @@
         };
       };
 
+      web-devicons.enable = true;
+
       lualine.enable = true;
     };
 
     colorschemes.catppuccin = {
       enable = true;
-      settings.flavor = "mocha";
-      integrations = {
-        cmp = true;
-        treesitter = true;
+      settings = {
+        flavor = "mocha";
+        integrations = {
+          cmp = true;
+          treesitter = true;
+        };
       };
     };
 

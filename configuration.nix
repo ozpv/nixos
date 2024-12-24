@@ -212,15 +212,14 @@
 
   # fonts
   fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [ "JetBrainsMono" ];
-    })
+    nerd-fonts.jetbrains-mono
   ];
 
   # bluetooth
   hardware.bluetooth.enable = false;
 
   # audio
+  services.pipewire.enable = false;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 

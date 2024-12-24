@@ -9,7 +9,7 @@
 
   home.username = "ozpv";
   home.homeDirectory = "/home/ozpv";
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.11";
 
   gtk.enable = true;
 
