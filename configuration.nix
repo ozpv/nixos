@@ -117,7 +117,7 @@
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dwm.git";
-        rev = "5d98b0dc24040979851c8e70bec5605bbc54a3e1";
+        rev = "cba75698f40079c07a1560a3ac760a46d52609ad";
       };
     };
     xkb.layout = "us";
@@ -162,19 +162,19 @@
     (st.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/st.git";
-        rev = "3a3cb60a329fc9dd139cd7a38e73307be791b480";
+        rev = "fb009d1cb85bb2e19cf267fe794cf9ab626c9792";
       };
     })
     (dmenu.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dmenu.git";
-        rev = "d22280f3dc99dd71b5c86c1a6ce584bdee7cd8eb";
+        rev = "8a6dfa7db55749c9bc48ee6bdd6f65c43095e123";
       };
     })
     (slstatus.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/slstatus.git";
-        rev = "d8a6d891cba4217d52e325b4107072473c174e45";
+        rev = "8ee4bd60785b6a0078e15b80b27136f8536448e1";
       };
     })
     (callPackage ./apps/powermenu.nix {})

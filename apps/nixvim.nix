@@ -25,8 +25,9 @@
       # Etc...
     ];
 
-    # We can set the leader key:
     globals.mapleader = " ";
+
+    clipboard.register = "unnamedplus";
 
     # We can also set options:
     opts = {
@@ -41,6 +42,8 @@
 
     plugins = {
       lazy.enable = true;
+
+      todo-comments.enable = true;
 
       telescope = {
         enable = true;
@@ -65,12 +68,12 @@
           html.enable = true;
           pyright.enable = true;
           jsonls.enable = true;
-          java-language-server.enable = true;
+          # java-language-server.enable = true;
           cmake.enable = true;
           sqls.enable = true;
           nixd.enable = true;
           tailwindcss.enable = true;
-          svelte.enable = true;
+          # svelte.enable = true;
           rust-analyzer = {
             enable = true;
             installRustc = true;
@@ -116,7 +119,14 @@
       lualine.enable = true;
     };
 
-    colorschemes.gruvbox.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      settings.flavor = "mocha";
+      integrations = {
+        cmp = true;
+        treesitter = true;
+      };
+    };
 
     extraPlugins = with pkgs.vimPlugins; [ vim-toml ];
   };
