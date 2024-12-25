@@ -13,10 +13,10 @@
 
   gtk.enable = true;
 
-  gtk.cursorTheme.package = pkgs.simp1e-cursors;
-  gtk.cursorTheme.name = "Simp1e-Gruvbox-Dark";
-  gtk.theme.package = pkgs.gruvbox-dark-gtk;
-  gtk.theme.name = "gruvbox-dark";
+  gtk.cursorTheme.package = pkgs.catppuccin-cursors.mochaDark;
+  gtk.cursorTheme.name = "catppuccin-mocha-dark-cursors";
+  gtk.theme.package = pkgs.catppuccin-gtk;
+  gtk.theme.name = "catppuccin-gtk-theme-mocha";
 
   nixpkgs.config.allowUnfree = true;
 
