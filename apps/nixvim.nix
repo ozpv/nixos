@@ -129,11 +129,12 @@ end";
     colorschemes.catppuccin = {
       enable = true;
       settings = {
-        flavor = "mocha";
+        flavour = "latte";
         integrations = {
           cmp = true;
           treesitter = true;
         };
+        term_colors = true;
       };
     };
 

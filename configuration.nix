@@ -136,7 +136,7 @@
   users.users.ozpv = {
     isNormalUser = true;
     description = "ozpv";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -153,11 +153,20 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # docker 
+  virtualisation.docker.enable = true;
+
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     libinput-gestures
     brightnessctl
+    discord
     vim
     (st.overrideAttrs {
       src = fetchGit {
