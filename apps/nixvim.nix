@@ -73,7 +73,7 @@ end";
           html.enable = true;
           pyright.enable = true;
           jsonls.enable = true;
-          # java_language_server.enable = true;
+          java_language_server.enable = true;
           cmake.enable = true;
           sqls.enable = true;
           nixd.enable = true;
