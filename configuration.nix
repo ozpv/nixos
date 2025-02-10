@@ -32,7 +32,8 @@
     dhcpcd.extraConfig = "nohook resolv.conf";
     hostName = "nixos"; # Define your hostname.
     wireless.enable = false;  # Enables wireless support via wpa_supplicant.
-    firewall.enable = true;  
+    firewall.enable = true;
+    firewall.allowedTCPPorts = [ 80 3000 ];
   };
   
   # touchpad
@@ -168,6 +169,7 @@
     brightnessctl
     discord
     vim
+    networkmanagerapplet
     (st.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/st.git";
@@ -251,12 +253,6 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

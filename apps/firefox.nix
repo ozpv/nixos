@@ -192,7 +192,7 @@
         "media.autoplay.enabled" = false;
         "media.eme.enabled" = false;
         "media.gmp-widevinecdm.enabled" = false;
-        "media.navigator.enabled" = false;
+        "media.navigator.enabled" = true;
         "media.peerconnection.enabled" = false;
         "media.peerconnection.ice.proxy_only_if_behind_prox" = true;
         "media.peerconnection.ice.default_address_only" = true;
