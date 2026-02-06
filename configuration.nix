@@ -124,7 +124,21 @@
     xkb.layout = "us";
     xkb.variant = "";
   };
+  
+  services.keyd = {
+    enable = true;
+    keyboards = {
+    default = {
 
+      ids = [ "*" ];
+      settings = {
+        main = {
+          capslock = "backspace";
+        };
+      };
+    };
+  };
+};
   # compostior
   services.picom.enable = true; 
 
