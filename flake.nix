@@ -14,32 +14,25 @@
       # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { nixpkgs, home-manager, nixvim, spicetify-nix, ... }@inputs:
+  outputs = { nixpkgs, home-manager, nixvim, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
+    in {
       nixosConfigurations.ozpv = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [ 
+        specialArgs = { inherit inputs; };
+        modules = [
           ./configuration.nix
-          home-manager.nixosModules.home-manager {
-            home-manager.extraSpecialArgs = { inherit inputs; };
-          }
+          home-manager.nixosModules.home-manager
+          { home-manager.extraSpecialArgs = { inherit inputs; }; }
         ];
       };
+
       devShells.x86_64-linux = {
-        default = (import ./shells/all.nix {inherit pkgs;});
-        haemolacriaa = (import ./shells/haemolacriaa.nix {inherit pkgs;});
-        csci = (import ./shells/csci.nix {inherit pkgs;});
+        default = (import ./shells/all.nix { inherit pkgs; });
+        haemolacriaa = (import ./shells/haemolacriaa.nix { inherit pkgs; });
       };
     };
 }

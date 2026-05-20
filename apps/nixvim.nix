@@ -7,15 +7,16 @@
     enable = true;
 
     # fix rust_analyzer error
-    extraConfigLua = "for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
-    local default_diagnostic_handler = vim.lsp.handlers[method]
-    vim.lsp.handlers[method] = function(err, result, context, config)
-        if err ~= nil and err.code == -32802 then
-            return
-        end
-        return default_diagnostic_handler(err, result, context, config)
-    end
-end";
+    extraConfigLua = ''
+      for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+          local default_diagnostic_handler = vim.lsp.handlers[method]
+          vim.lsp.handlers[method] = function(err, result, context, config)
+              if err ~= nil and err.code == -32802 then
+                  return
+              end
+              return default_diagnostic_handler(err, result, context, config)
+          end
+      end'';
 
     keymaps = [
       {
@@ -71,16 +72,13 @@ end";
           lua_ls.enable = true;
           bashls.enable = true;
           html.enable = true;
-          pyright.enable = true;
           jsonls.enable = true;
-          java_language_server.enable = true;
           cmake.enable = true;
           sqls.enable = true;
           nixd.enable = true;
           tailwindcss.enable = true;
-          # svelte.enable = true;
           rust_analyzer = {
-            enable = true;
+            enable = false;
             installRustc = true;
             installCargo = true;
           };
@@ -89,36 +87,37 @@ end";
 
       lspkind.enable = true;
 
-      luasnip.enable = true;
-
       cmp = {
         enable = true;
         autoEnableSources = true;
-  
+
         settings = {
-          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
-  
+          snippet.expand =
+            "function(args) require('luasnip').lsp_expand(args.body) end";
+
           mapping = {
             "<Tab>" = "cmp.mapping.confirm({ select = true })";
-            "<S-Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<S-Tab>" =
+              "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
-  
+
           sources = [
-            {name = "path";}
-            {name = "nvim_lsp";}
-            {name = "luasnip";}
-            {name = "crates";}
-            {name = "buffer";}
+            { name = "path"; }
+            { name = "nvim_lsp"; }
+            {
+              name = "luasnip";
+            }
+            # the worst thing in existence
+            # {name = "crates";}
+            { name = "buffer"; }
           ];
         };
       };
-  
+
       rustaceanvim = {
-        enable = false;
-  
-        settings = {
-          tools.enable_clippy = true;
-        };
+        enable = true;
+
+        settings = { tools.enable_clippy = true; };
       };
 
       web-devicons.enable = true;
@@ -126,15 +125,14 @@ end";
       lualine.enable = true;
     };
 
-    colorschemes.catppuccin = {
+    colorschemes.gruvbox = {
       enable = true;
       settings = {
-        flavour = "latte";
         integrations = {
           cmp = true;
           treesitter = true;
         };
-        term_colors = true;
+        terminal_colors = true;
       };
     };
 

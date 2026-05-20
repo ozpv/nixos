@@ -1,34 +1,22 @@
 { config, pkgs, libs, inputs, ... }:
 
 {
-  imports = [ 
-    ./apps/firefox.nix 
-    ./apps/nixvim.nix
-    ./apps/spicetify.nix
-  ];
+  imports = [ ./apps/firefox.nix ./apps/nixvim.nix ];
 
   home.username = "ozpv";
   home.homeDirectory = "/home/ozpv";
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   gtk.enable = true;
 
-  gtk.cursorTheme.package = pkgs.catppuccin-cursors.mochaDark;
-  gtk.cursorTheme.name = "catppuccin-mocha-dark-cursors";
-  gtk.theme.package = pkgs.catppuccin-gtk;
-  gtk.theme.name = "catppuccin-gtk-theme-mocha";
+  gtk.theme.package = pkgs.gruvbox-gtk-theme;
+  gtk.theme.name = "Gruvbox-Green";
 
   nixpkgs.config.allowUnfree = true;
 
-  home.packages = with pkgs; [
-    veracrypt
-    keepassxc
-    neofetch
-  ];
+  home.packages = with pkgs; [ veracrypt keepassxc neofetch ];
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   programs.home-manager.enable = true;
 
@@ -57,7 +45,7 @@
       bvim = "vim";
       vim = "nvim";
     };
-    
+
     history.size = 10000;
   };
 }

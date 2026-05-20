@@ -3,12 +3,11 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }: {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-    ];
-  
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
@@ -19,72 +18,71 @@
   boot.loader.grub.useOSProber = true;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+  boot.kernelModules =
+    [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
   boot.kernelParams = [ "amd_iommu=on" "amd_iommu=pt" "kvm.ignore_msrs=1" ];
   boot.extraModprobeConfig = "options vfio-pci ids=10de:25ac";
 
   networking = {
     # dns.mullvad.net
     # nameservers = [ "194.242.2.2" ];
-    networkmanager = {
-       enable = true;
-    };
+    networkmanager = { enable = true; };
     dhcpcd.extraConfig = "nohook resolv.conf";
     hostName = "nixos"; # Define your hostname.
-    wireless.enable = false;  # Enables wireless support via wpa_supplicant.
+    wireless.enable = false; # Enables wireless support via wpa_supplicant.
     firewall.enable = true;
     firewall.allowedTCPPorts = [ 80 3000 ];
   };
-  
+
   # touchpad
   services.libinput.enable = true;
-  services.libinput.touchpad.naturalScrolling = false; 
-  services.libinput.touchpad.middleEmulation = true; 
+  services.libinput.touchpad.naturalScrolling = false;
+  services.libinput.touchpad.middleEmulation = true;
   services.libinput.touchpad.tapping = true;
 
   # graphics
   hardware.graphics.enable = true;
-#  hardware.nvidia = {
-#    modesetting.enable = true;
-#
-#    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-#    # Enable this if you have graphical corruption issues or application crashes after waking
-#    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
-#    # of just the bare essentials.
-#    powerManagement.enable = false;
-#
-#    # Fine-grained power management. Turns off GPU when not in use.
-#    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-#    powerManagement.finegrained = false;
-#
-#    # Use the NVidia open source kernel module (not to be confused with the
-#    # independent third-party "nouveau" open source driver).
-#    # Support is limited to the Turing and later architectures. Full list of 
-#    # supported GPUs is at: 
-#    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-#    # Only available from driver 515.43.04+
-#    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-#    open = false;
-#
-#    # Enable the Nvidia settings menu,
-#    # accessible via `nvidia-settings`.
-#    nvidiaSettings = true;
-#
-#    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-#    package = config.boot.kernelPackages.nvidiaPackages.stable;
-#    
-#    prime = {
-#      offload = {
-#        enable = true;
-#        enableOffloadCmd = true;
-#      };
-#
-#      # Make sure to use the correct Bus ID values for your system!
-#      amdgpuBusId = "PCI:115:0:0"; 
-#      nvidiaBusId = "PCI:1:0:0";
-#    };
-#  };
-#  services.xserver.videoDrivers = [ "nvidia" ];
+  #  hardware.nvidia = {
+  #    modesetting.enable = true;
+  #
+  #    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+  #    # Enable this if you have graphical corruption issues or application crashes after waking
+  #    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+  #    # of just the bare essentials.
+  #    powerManagement.enable = false;
+  #
+  #    # Fine-grained power management. Turns off GPU when not in use.
+  #    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+  #    powerManagement.finegrained = false;
+  #
+  #    # Use the NVidia open source kernel module (not to be confused with the
+  #    # independent third-party "nouveau" open source driver).
+  #    # Support is limited to the Turing and later architectures. Full list of 
+  #    # supported GPUs is at: 
+  #    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+  #    # Only available from driver 515.43.04+
+  #    # Currently alpha-quality/buggy, so false is currently the recommended setting.
+  #    open = false;
+  #
+  #    # Enable the Nvidia settings menu,
+  #    # accessible via `nvidia-settings`.
+  #    nvidiaSettings = true;
+  #
+  #    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+  #    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  #    
+  #    prime = {
+  #      offload = {
+  #        enable = true;
+  #        enableOffloadCmd = true;
+  #      };
+  #
+  #      # Make sure to use the correct Bus ID values for your system!
+  #      amdgpuBusId = "PCI:115:0:0"; 
+  #      nvidiaBusId = "PCI:1:0:0";
+  #    };
+  #  };
+  #  services.xserver.videoDrivers = [ "nvidia" ];
   # boot.kernelParams = [ "module_blacklist=amdgpu" "module_blacklist=i915" ];
 
   # Configure network proxy if necessary
@@ -112,7 +110,7 @@
   # Configure keymap in X11
   services.xserver = {
     enable = true;
-    displayManager.lightdm.enable = false; 
+    displayManager.lightdm.enable = false;
     displayManager.startx.enable = true;
     windowManager.dwm.enable = true;
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
@@ -124,23 +122,19 @@
     xkb.layout = "us";
     xkb.variant = "";
   };
-  
+
   services.keyd = {
     enable = true;
     keyboards = {
-    default = {
+      default = {
 
-      ids = [ "*" ];
-      settings = {
-        main = {
-          capslock = "backspace";
-        };
+        ids = [ "*" ];
+        settings = { main = { capslock = "backspace"; }; };
       };
     };
   };
-};
   # compostior
-  services.picom.enable = true; 
+  services.picom.enable = true;
 
   # login
   services.logind.extraConfig = ''
@@ -152,18 +146,14 @@
     isNormalUser = true;
     description = "ozpv";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
 
   # lock screen
   programs.slock.enable = true;
 
-  home-manager = {
-    users.ozpv = {
-      imports = [ ./home.nix ];
-    };
-  };
+  home-manager = { users.ozpv = { imports = [ ./home.nix ]; }; };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -179,6 +169,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    nixfmt
     libinput-gestures
     brightnessctl
     discord
@@ -202,7 +193,7 @@
         rev = "8ee4bd60785b6a0078e15b80b27136f8536448e1";
       };
     })
-    (callPackage ./apps/powermenu.nix {})
+    (callPackage ./apps/powermenu.nix { })
     networkmanager_dmenu
     maim
     sxiv
@@ -232,13 +223,11 @@
       bind-key h select-pane -R
       bind-key k select-pane -U
       bind-key j select-pane -D
-    ''; 
+    '';
   };
 
   # fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
+  fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 
   # bluetooth
   hardware.bluetooth.enable = false;
@@ -274,6 +263,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
 }

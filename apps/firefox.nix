@@ -1,35 +1,35 @@
 { pkgs, ... }: {
   programs.firefox = {
     enable = true;
-    
+
     profiles.ozpv = {
-      userChrome = '' 
+      userChrome = ''
         :root[tabsintitlebar][sizemode="normal"]{
           --uc-window-drag-space-width: 24px;
         }
         :root[uidensity="compact"]{
           --tab-block-margin: 2px !important;
         }
-        
+
         #navigator-toolbox{
           --uc-navigationbar-width: 40vw;
           --uc-toolbar-height: 40px;
           --uc-urlbar-min-width: 50vw;
         }
-        
+
         #scrollbutton-up,
         #scrollbutton-down{ border-block-width: 2px !important; }
-        
+
         :root[uidensity="compact"] #navigator-toolbox{ --uc-toolbar-height: 34px; }
         :root[uidensity="touch"] #navigator-toolbox{ --uc-toolbar-height: 44px; }
-        
+
         @media screen and (max-width: 1500px){
             #urlbar-container{
               min-width: 300px !important;
               flex-shrink: 1 !important;
             }
         }
-        
+
         #TabsToolbar{
           margin-left: var(--uc-navigationbar-width);
           --tabs-navbar-shadow-size: 0px;
@@ -37,16 +37,16 @@
         #tabbrowser-tabs{
           --tab-min-height: calc(var(--uc-toolbar-height) - 2 * var(--tab-block-margin,0px)) !important;
         }
-        
+
         .titlebar-spacer[type="pre-tabs"]{ display: none }
-        
+
         #navigator-toolbox > #nav-bar{
           margin-right:calc(100vw - var(--uc-navigationbar-width));
           margin-top: calc(0px - var(--uc-toolbar-height));
         }
-        
+
         :root[tabsintitlebar="true"] #nav-bar{ padding-left: var(--uc-window-drag-space-width) !important }
-        
+
         @media (-moz-gtk-csd-reversed-placement),
                (-moz-platform: macos){
           .titlebar-buttonbox-container{
@@ -62,13 +62,13 @@
         @media (-moz-platform: macos){
           :root[tabsintitlebar="true"] #nav-bar{ padding-inline: calc(var(--uc-window-drag-space-width,0px) + 72px) 0px !important; }
         }
-        
+
         .tab-close-button{ margin-top: 0 !important }
-        
+
         #urlbar[open]:focus-within{ min-width: var(--uc-urlbar-min-width,none) !important; }
-        
+
         #urlbar-container:not(:hover) .urlbar-history-dropmarker{ margin-inline-start: -28px; }
-        
+
         #customization-panelWrapper > .panel-arrowbox > .panel-arrow{ margin-inline-end: initial !important; }
       '';
 
@@ -107,7 +107,8 @@
         "browser.newtabpage.activity-stream.telemetry" = false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
         "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
-        "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
+        "browser.newtabpage.activity-stream.section.highlights.includePocket" =
+          false;
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.feeds.discoverystreamfeed" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
@@ -181,7 +182,8 @@
         "extensions.webservice.discoverURL" = "";
         "extensions.webextensions.restrictedDomains" = "";
         "extensions.postDownloadThirdPartyPrompt" = false;
-        "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocat";
+        "geo.provider.network.url" =
+          "https://location.services.mozilla.com/v1/geolocat";
         "geo.provider.ms-windows-location" = false;
         "geo.provider.use_gpsd" = false;
         "geo.provider.use_geoclue" = false;
@@ -230,8 +232,10 @@
         "privacy.donottrackheader.value" = 1;
         "privacy.firstparty.isolate" = true;
         "privacy.partition.serviceWorkers" = true;
-        "privacy.partition.always_partition_third_party_non_cookie_storage" = true;
-        "privacy.partition.always_partition_third_party_non_cookie_storage.exempt_sessionstorage" = true;
+        "privacy.partition.always_partition_third_party_non_cookie_storage" =
+          true;
+        "privacy.partition.always_partition_third_party_non_cookie_storage.exempt_sessionstorage" =
+          true;
         "privacy.query_stripping" = true;
         "privacy.resistFingerprinting" = true;
         "privacy.trackingprotection.cryptomining.enabled" = true;
@@ -244,7 +248,8 @@
         "privacy.window.maxInnerHeight" = 900;
         "privacy.resistFingerprinting.block_mozAddonManager" = true;
         "security.ssl.disable_session_identifiers" = true;
-        "services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsoredTopSite" = false;
+        "services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsoredTopSite" =
+          false;
         "signon.autofillForms" = false;
         "toolkit.telemetry.archive.enabled" = false;
         "toolkit.telemetry.bhrPing.enabled" = false;
