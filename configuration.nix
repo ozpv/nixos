@@ -116,7 +116,7 @@
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dwm.git";
-        rev = "4c0c205e4710856de0e2ed16c3d3f02e46d8a8fe";
+        rev = "0fc8dd0a9a13136097f5c15b64ffa3e8ef8043fd";
       };
     };
     xkb.layout = "us";
