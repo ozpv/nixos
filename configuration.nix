@@ -116,7 +116,7 @@
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
       src = fetchGit {
         url = "https://github.com/ozpv/dwm.git";
-        rev = "c6efd49544771588920e14eab44f79f67c51f9f9";
+        rev = "4c0c205e4710856de0e2ed16c3d3f02e46d8a8fe";
       };
     };
     xkb.layout = "us";
@@ -169,7 +169,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    nixfmt
+    nixfmt-classic
     libinput-gestures
     brightnessctl
     discord
@@ -212,7 +212,10 @@
   programs.dconf.enable = true;
 
   # browser
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    package = pkgs.librewolf;
+  };
 
   # tmux
   programs.tmux = {

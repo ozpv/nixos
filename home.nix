@@ -1,7 +1,7 @@
 { config, pkgs, libs, inputs, ... }:
 
 {
-  imports = [ ./apps/firefox.nix ./apps/nixvim.nix ];
+  imports = [ ./apps/librewolf.nix ./apps/nixvim.nix ];
 
   home.username = "ozpv";
   home.homeDirectory = "/home/ozpv";
