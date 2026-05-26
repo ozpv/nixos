@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+  imports = [ inputs.nixvim.homeModules.nixvim ];
 
   programs.nixvim = {
     enable = true;
@@ -23,7 +23,6 @@
         key = ";";
         action = ":";
       }
-
       {
         key = "<leader>gg";
         action = "<cmd>Man<CR>";
@@ -46,6 +45,16 @@
       mouse = "a";
     };
 
+    colorschemes.gruvbox = {
+      enable = true;
+      settings = {
+        integrations = {
+          cmp = true;
+        };
+        terminal_colors = true;
+      };
+    };
+
     plugins = {
       lazy.enable = true;
 
@@ -57,12 +66,6 @@
           "<leader>ff" = "find_files";
           "<leader>lg" = "live_grep";
         };
-      };
-
-      treesitter = {
-        enable = true;
-        folding = false;
-        settings.indent.enable = true;
       };
 
       lsp = {
@@ -121,19 +124,6 @@
       };
 
       web-devicons.enable = true;
-
-      lualine.enable = true;
-    };
-
-    colorschemes.gruvbox = {
-      enable = true;
-      settings = {
-        integrations = {
-          cmp = true;
-          treesitter = true;
-        };
-        terminal_colors = true;
-      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [ vim-toml ];

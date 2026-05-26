@@ -2,13 +2,23 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }: {
-  imports = [ # Include the results of the hardware scan.
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
@@ -18,20 +28,34 @@
   boot.loader.grub.useOSProber = true;
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules =
-    [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
-  boot.kernelParams = [ "amd_iommu=on" "amd_iommu=pt" "kvm.ignore_msrs=1" ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "vfio_virqfd"
+    "vfio_pci"
+    "vfio_iommu_type1"
+    "vfio"
+  ];
+  boot.kernelParams = [
+    "amd_iommu=on"
+    "amd_iommu=pt"
+    "kvm.ignore_msrs=1"
+  ];
   boot.extraModprobeConfig = "options vfio-pci ids=10de:25ac";
 
   networking = {
     # dns.mullvad.net
     # nameservers = [ "194.242.2.2" ];
-    networkmanager = { enable = true; };
+    networkmanager = {
+      enable = true;
+    };
     dhcpcd.extraConfig = "nohook resolv.conf";
     hostName = "nixos"; # Define your hostname.
-    wireless.enable = false; # Enables wireless support via wpa_supplicant.
+    wireless.enable = true; # Enables wireless support via wpa_supplicant.
     firewall.enable = true;
-    firewall.allowedTCPPorts = [ 80 3000 ];
+    firewall.allowedTCPPorts = [
+      80
+      3000
+    ];
   };
 
   # touchpad
@@ -47,7 +71,7 @@
   #
   #    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
   #    # Enable this if you have graphical corruption issues or application crashes after waking
-  #    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+  #    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
   #    # of just the bare essentials.
   #    powerManagement.enable = false;
   #
@@ -57,9 +81,9 @@
   #
   #    # Use the NVidia open source kernel module (not to be confused with the
   #    # independent third-party "nouveau" open source driver).
-  #    # Support is limited to the Turing and later architectures. Full list of 
-  #    # supported GPUs is at: 
-  #    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+  #    # Support is limited to the Turing and later architectures. Full list of
+  #    # supported GPUs is at:
+  #    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
   #    # Only available from driver 515.43.04+
   #    # Currently alpha-quality/buggy, so false is currently the recommended setting.
   #    open = false;
@@ -70,7 +94,7 @@
   #
   #    # Optionally, you may need to select the appropriate driver version for your specific GPU.
   #    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  #    
+  #
   #    prime = {
   #      offload = {
   #        enable = true;
@@ -78,7 +102,7 @@
   #      };
   #
   #      # Make sure to use the correct Bus ID values for your system!
-  #      amdgpuBusId = "PCI:115:0:0"; 
+  #      amdgpuBusId = "PCI:115:0:0";
   #      nvidiaBusId = "PCI:1:0:0";
   #    };
   #  };
@@ -129,23 +153,27 @@
       default = {
 
         ids = [ "*" ];
-        settings = { main = { capslock = "backspace"; }; };
+        settings = {
+          main = {
+            capslock = "backspace";
+          };
+        };
       };
     };
   };
   # compostior
   services.picom.enable = true;
 
-  # login
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-  '';
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ozpv = {
     isNormalUser = true;
     description = "ozpv";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+      "docker"
+    ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
@@ -153,12 +181,16 @@
   # lock screen
   programs.slock.enable = true;
 
-  home-manager = { users.ozpv = { imports = [ ./home.nix ]; }; };
+  home-manager = {
+    users.ozpv = {
+      imports = [ ./home.nix ];
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # docker 
+  # docker
   virtualisation.docker.enable = true;
 
   virtualisation.docker.rootless = {
@@ -169,10 +201,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    nixfmt-classic
+    nixfmt
     libinput-gestures
     brightnessctl
-    discord
     vim
     networkmanagerapplet
     (st.overrideAttrs {
@@ -202,6 +233,9 @@
     git
     home-manager
     xclip
+    veracrypt
+    keepassxc
+    fastfetch
   ];
 
   # neovim
@@ -237,8 +271,8 @@
 
   # audio
   services.pipewire.enable = false;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  services.pulseaudio.enable = true;
+  services.pulseaudio.package = pkgs.pulseaudioFull;
 
   # shell
   programs.zsh.enable = true;
@@ -266,6 +300,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 
 }

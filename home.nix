@@ -5,7 +5,7 @@
 
   home.username = "ozpv";
   home.homeDirectory = "/home/ozpv";
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
 
   gtk.enable = true;
 
@@ -14,7 +14,7 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  home.packages = with pkgs; [ veracrypt keepassxc neofetch ];
+  home.packages = with pkgs; [ ];
 
   home.sessionVariables = { EDITOR = "nvim"; };
 
