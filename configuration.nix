@@ -139,7 +139,8 @@
     windowManager.dwm.enable = true;
     windowManager.dwm.package = pkgs.dwm.overrideAttrs {
       src = fetchGit {
-        url = "https://github.com/ozpv/dwm.git";
+        url = "https://git.haemolacriaa.com/dwm";
+        ref = "main";
         rev = "0fc8dd0a9a13136097f5c15b64ffa3e8ef8043fd";
       };
     };
@@ -147,20 +148,6 @@
     xkb.variant = "";
   };
 
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-
-        ids = [ "*" ];
-        settings = {
-          main = {
-            capslock = "backspace";
-          };
-        };
-      };
-    };
-  };
   # compostior
   services.picom.enable = true;
 
@@ -172,7 +159,6 @@
       "networkmanager"
       "wheel"
       "libvirtd"
-      "docker"
     ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
@@ -190,14 +176,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # docker
-  virtualisation.docker.enable = true;
-
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -208,20 +186,23 @@
     networkmanagerapplet
     (st.overrideAttrs {
       src = fetchGit {
-        url = "https://github.com/ozpv/st.git";
+        url = "https://git.haemolacriaa.com/st";
+        ref = "main";
         rev = "887af06f324f6e85e1bfb6f596ba2409d134c8f0";
       };
     })
     (dmenu.overrideAttrs {
       src = fetchGit {
-        url = "https://github.com/ozpv/dmenu.git";
+        url = "https://git.haemolacriaa.com/dmenu";
+        ref = "main";
         rev = "8a6dfa7db55749c9bc48ee6bdd6f65c43095e123";
       };
     })
     (slstatus.overrideAttrs {
       src = fetchGit {
-        url = "https://github.com/ozpv/slstatus.git";
-        rev = "e4f6dca31f3a77d0b9c268e3b7ce4139b6fa71a0";
+        url = "https://git.haemolacriaa.com/slstatus";
+        ref = "main";
+        rev = "07ca8d3530ecf21b780f818172794f4a34826576";
       };
     })
     (callPackage ./apps/powermenu.nix { })
